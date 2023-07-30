@@ -1,0 +1,133 @@
+# 发布到 Android / Windows
+
+:::caution
+请按文档**列出的步骤顺序**执行，以确保发布过程的顺利进行。
+:::
+
+## 打包
+
+1. 在 `pubspec.yaml` 中修改版本号；
+2. 执行项目下的 `run_build.bat` 脚本，根据提示确认 Android 版可以打包，**且使用了正确的证书**（证书使用流程见下）；
+3. 输入版本号（该输入仅用于输出的文件名，胡乱输也不影响输出的文件内容）；
+4. 在 `build/app/` 目录下获取对应的安装包。
+
+::::tip 证书使用流程
+
+1. 在 `android/` 目录下创建 `key.properties` 文件，内容如下：
+
+```properties
+storePassword=证书库密码
+keyPassword=证书密码
+keyAlias=证书库中的证书别名
+storeFile=D:\\你的证书位置\\证书文件名
+```
+
+:::caution
+
+Windows 上，路径中的 `\` 需要使用 `\\` 转义，否则会报错。
+
+:::
+
+:::tip
+
+一个证书库中可以包含多个证书，具体使用哪个证书取决于 `keyAlias` 的设置。
+
+:::
+
+2. 确保 `android/app/build.gradle` 中 `android.buildTypes.release` 中的 `signingConfig` 配置正确，如下：
+
+```groovy
+signingConfig signingConfigs.release
+```
+
+
+::::
+
+## 发布
+目前旦夕安装包的发布渠道有以下几个，每次发布时需分别操作：
+
+### Github Releases
+发布到 Github Releases 时，需要在 Github 上创建一个新的 Release，然后上传对应的 Android 和 Windows 安装包。
+
+:::caution
+
+建议在发布前先在本地测试一下，以确保安装包的正确性。
+
+:::
+
+:::tip
+建议在点击发布按钮前，先发布到草稿，在后续工作完成后再正式发布。
+:::
+
+:::info 有用的链接
+1. 发布新版本：<https://github.com/DanXi-Dev/DanXi/releases/new>
+2. 编写更新日志时，可以对照从上一个版本到这个版本的提交记录，如：<https://github.com/DanXi-Dev/DanXi/compare/v1.3.10...main>
+3. 编写更新日志时，可以参考以往的更新日志的 Markdown 格式，如：<https://github.com/DanXi-Dev/DanXi/releases/edit/v1.3.10>
+:::
+
+### Android 下载站
+目前暂时没有自动化的发布流程，需要手动上传安装包到服务器。具体咨询后端运维同学。
+
+### F-Droid
+
+1. 切换到 `foss-build` 分支工作；
+2. 合并 `master` 分支到 `foss-build` 分支。注意该分支应该不包含任何非 FOSS 的代码，例如 Google 广告、Mi Push 等，**合并时应特别谨慎，注意解决相关冲突**；
+
+:::caution
+
+
+需要保证 `pubspec.lock` 是最新的。如果你设置了 Flutter 使用国内镜像（如 `pub.flutter-io.cn`），你的本地 `pubspec.lock` 中的地址将指向镜像站而非官方源（如 `pub.dev`），因此需要暂时修改你的镜像设置，然后重新执行 `flutter pub upgrade` 和 `flutter pub get`，以确保 `pubspec.lock` 中的地址指向官方源。
+任何情况下都**不要向仓库提交包含国内镜像站地址的 `pubspec.lock`，否则将会导致工程管理混乱，以及 F-Droid 方面无法为你构建 APK！**
+
+当然，如果你从未修改过 Flutter 镜像设置，或者你确保自己使用的就是官方源，那么你可以跳过这个警告。
+
+:::
+
+3. `foss-build` 将 Flutter 作为 [Git submodule（中文）](https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97) 引入，因此需要更新 submodule。例如你目前使用的本地 Flutter 版本是 `2.2.3`，则需要执行以下命令：
+
+```bash
+# 启用子模块（仅在你没有看到 .flutter 子目录时需要执行）
+git submodule update --init --recursive
+# 进入子模块目录
+cd .flutter
+# 更新源代码和标签
+git fetch --all --tags
+# 切换到对应的版本。Flutter 大版本的版本号（通常是这样，请自行确认）恰好是其对应的 Git tag 别名，因此可以直接使用版本号签出：
+git checkout tags/2.2.3
+```
+
+4. 在 `fastline/metadata/android/<语言>/changelogs/` 目录下，创建一个新的文件，文件名为当前版本 Build 号，例如 `333.txt`，并在其中编写更新日志。可以参考以往的更新日志的格式；
+
+:::caution
+
+各个语言都需要编写更新日志，否则 F-Droid 会认为该版本没有更新日志，从而不会发布。请不要图省事而只写中文的更新日志。
+
+:::
+
+5. （可选）本地执行 [F-Droid 构建元文件](https://gitlab.com/fdroid/fdroiddata/-/blob/master/metadata/io.github.danxi_dev.dan_xi.yml) 中含有 `submodules: true` 的版本下的 `build` 部分的命令，确保能构建成功；
+6. 提交分支并推送到远程仓库，**打上版本号 tag，格式为 `foss-v1.2.3`**（同样缺一不可，请勿为了图省事而忽略）。
+
+:::caution
+
+`git push` 默认不会推送 tag 到仓库，需要使用 `git push --tags`。
+
+:::
+
+7. 等待 F-Droid 构建服务器发现新的 tag，自动构建并发布，大约需要  3-7 天。你可以在 [F-Droid 构建状态](https://f-droid.org/zh_Hans/packages/de.storchp.fdroidbuildstatus/) 应用中查看构建状态。
+
+:::info 有用的链接
+
+1. FAQ，介绍了 F-Droid 的构建流程（英文）：<https://gitlab.com/fdroid/wiki/-/wikis/FAQ>
+2. 服务器整体构建状态监控（英文）：<https://monitor.f-droid.org/builds/build>
+3. F-Droid 构建问题请求跟踪（英文）：<https://gitlab.com/fdroid/fdroiddata/-/issues>
+4. 旦夕的构建元文件：<https://gitlab.com/fdroid/fdroiddata/-/blob/master/metadata/io.github.danxi_dev.dan_xi.yml>
+5. 构建元文件的格式说明（中文）：<https://f-droid.org/zh_Hans/docs/Build_Metadata_Reference/>
+
+:::
+
+:::tip
+
+必要时（如遇到构建失败等问题），可以向上述仓库提交 issue 寻求帮助，或者 fork 该仓库，对我们的元文件进行修改后，发起 Merge request。可以参考[我之前的 MR](https://gitlab.com/fdroid/fdroiddata/-/merge_requests/12544)。
+
+:::
+
