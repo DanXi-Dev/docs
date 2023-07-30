@@ -131,3 +131,18 @@ git checkout tags/2.2.3
 
 :::
 
+## 公告
+### 应用内更新提醒
+
+1. 在 [DanXi-Dev/DanXi-Backend](https://github.com/DanXi-Dev/DanXi-Backend) 仓库中，打开 `all.json` 文件，找到 `"maxVersion": -2` 和 `"maxVersion": -3` 的两个条目，将其 `content` 字段的值改为当前版本号和更新日志。
+
+:::caution
+
+> 字符串内容需要转义，例如 `"` 需要写成 `\"`，换行符需要写成 `\n`。请不要图省事而直接复制粘贴手写的更新日志，否则可能会导致 JSON 格式错误。
+:::
+
+:::info 有用的链接
+
+1. JSON 格式化和转义工具（中文）：<https://www.bejson.com/>
+
+:::
