@@ -82,6 +82,12 @@ const config = {
             position: 'left',
             label: '旦夕 App',
           },
+          {
+            type: 'docSidebar',
+            sidebarId: 'maintenanceSidebar',
+            position: 'left',
+            label: '旦夕日常维护',
+          },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://github.com/DanXi-Dev/docs',

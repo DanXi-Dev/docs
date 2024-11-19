@@ -14,3 +14,11 @@ import DocCardList from '@theme/DocCardList';
     href: 'danxi/intro'
   }
 ]} />
+
+<DocCardList items={[
+  {
+    type: 'link',
+    label: '旦夕日常维护',
+    href: 'maintenance/intro'
+  }
+]} />
