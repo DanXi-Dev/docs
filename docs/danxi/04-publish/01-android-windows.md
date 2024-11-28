@@ -66,7 +66,10 @@ signingConfig signingConfigs.release
 :::
 
 ### Android 下载站
-目前暂时没有自动化的发布流程，需要手动上传安装包到服务器。具体咨询后端运维同学。
+目前暂时没有自动化的发布流程，需要手动上传安装包到服务器。
+
+1. 保证安装包体积小于 25MB
+2. 将安装包命名为 danxi-latest.apk，上传至 https://github.com/DanXi-Dev/DanXi-Backend/tree/main/public 文件夹下
 
 ### F-Droid
 
@@ -134,7 +137,7 @@ git checkout tags/2.2.3
 ## 公告
 ### 应用内更新提醒
 
-1. 在 [DanXi-Dev/DanXi-Backend](https://github.com/DanXi-Dev/DanXi-Backend) 仓库中，打开 `all.json` 文件，找到 `"maxVersion": -2` 和 `"maxVersion": -3` 的两个条目，将其 `content` 字段的值改为当前版本号和更新日志。
+1. 【deprecated】在 [DanXi-Dev/DanXi-Backend](https://github.com/DanXi-Dev/DanXi-Backend) 仓库中，打开 `all.json` 文件，找到 `"maxVersion": -2` 和 `"maxVersion": -3` 的两个条目，将其 `content` 字段的值改为当前版本号和更新日志。
 
 :::caution
 
@@ -146,3 +149,6 @@ git checkout tags/2.2.3
 1. JSON 格式化和转义工具（中文）：<https://www.bejson.com/>
 
 :::
+
+2. 在 [DanXi-Dev/DanXi-Backend](https://github.com/DanXi-Dev/DanXi-Backend) 仓库中，打开 `tmp_wait_for_json_editor.toml` 文件。找到 [latest_version] 下的 flutter 字段，修改其值。
+3. 在 [https://github.com/DanXi-Dev/danxi-dev.github.io] 仓库中找到 `src/views/ProjectAppView.vue` 文件，按需修改 `<script>` 标签中的 `latestVersion` 和 `oldestVersion` 变量。如有特殊需求，请同步更改该网页内的其他部分（如特性介绍）。
