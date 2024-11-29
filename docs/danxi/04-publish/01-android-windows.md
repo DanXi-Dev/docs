@@ -7,8 +7,8 @@
 ## 打包
 
 1. 在 `pubspec.yaml` 中修改版本号；
-2. 执行项目下的 `run_build.bat` 脚本，根据提示确认 Android 版可以打包，**且使用了正确的证书**（证书使用流程见下）；
-3. 输入版本号（该输入仅用于输出的文件名，胡乱输也不影响输出的文件内容）；
+2. 确定使用了正确的 Android 签名证书（证书使用流程见下）；
+3. 运行 `dart build_release.dart --target <android|windows|aab|linux> --versionCode <版本号，如 1.4.5>` 来打包。
 4. 在 `build/app/` 目录下获取对应的安装包。
 
 ::::tip 证书使用流程
@@ -57,6 +57,8 @@ signingConfig signingConfigs.release
 
 :::tip
 建议在点击发布按钮前，先发布到草稿，在后续工作完成后再正式发布。
+
+由于接下来几个步骤都会频繁用到更新日志，建议在这一步编写并保存好更新日志，以备后续使用。
 :::
 
 :::info 有用的链接
@@ -68,8 +70,8 @@ signingConfig signingConfigs.release
 ### Android 下载站
 目前暂时没有自动化的发布流程，需要手动上传安装包到服务器。
 
-1. 保证安装包体积小于 25MB
-2. 将安装包命名为 danxi-latest.apk，上传至 https://github.com/DanXi-Dev/DanXi-Backend/tree/main/public 文件夹下
+1. 保证安装包体积小于 25MB，以满足 Cloudflare 的限制；
+2. 将安装包命名为 `danxi-latest.apk`，上传至 https://github.com/DanXi-Dev/DanXi-Backend/tree/main/public 文件夹下。
 
 ### F-Droid
 
@@ -114,9 +116,11 @@ git checkout tags/2.2.3
 
 `git push` 默认不会推送 tag 到仓库，需要使用 `git push --tags`。
 
+请务必在推送后到 GitHub 仓库页面点击最新提交，确定 tag 已经推送成功。
+
 :::
 
-7. 等待 F-Droid 构建服务器发现新的 tag，自动构建并发布，大约需要  3-7 天。你可以在 [F-Droid 构建状态](https://f-droid.org/zh_Hans/packages/de.storchp.fdroidbuildstatus/) 应用中查看构建状态。
+7. 等待 F-Droid 构建服务器发现新的 tag，自动构建并发布，大约需要 3-7 天。你可以在 [F-Droid 构建状态](https://f-droid.org/zh_Hans/packages/de.storchp.fdroidbuildstatus/) 应用中查看构建状态。
 
 :::info 有用的链接
 
@@ -134,14 +138,22 @@ git checkout tags/2.2.3
 
 :::
 
+### Google Play
+
+在 Google Play 中发布需要打包为 `.aab` 格式的安装包，然后上传到 Google Play Console。
+
+由于 Google Play Console 的操作较为直观，这里不再赘述具体步骤。
+
 ## 公告
 ### 应用内更新提醒
 
-1. 【deprecated】在 [DanXi-Dev/DanXi-Backend](https://github.com/DanXi-Dev/DanXi-Backend) 仓库中，打开 `all.json` 文件，找到 `"maxVersion": -2` 和 `"maxVersion": -3` 的两个条目，将其 `content` 字段的值改为当前版本号和更新日志。
+1. 在 [DanXi-Dev/DanXi-Backend](https://github.com/DanXi-Dev/DanXi-Backend) 仓库中，打开 `all.json` 文件，找到 `"maxVersion": -2` 和 `"maxVersion": -3` 的两个条目，将其 `content` 字段的值改为当前版本号和更新日志；
 
 :::caution
 
-> 字符串内容需要转义，例如 `"` 需要写成 `\"`，换行符需要写成 `\n`。请不要图省事而直接复制粘贴手写的更新日志，否则可能会导致 JSON 格式错误。
+字符串内容需要转义，例如 `"` 需要写成 `\"`，换行符需要写成 `\n`。请不要图省事而直接复制粘贴手写的更新日志，否则可能会导致 JSON 格式错误。
+
+`all.json` 目前已弃用，仅在旧版本中使用。新版本其实只需要修改 `tmp_wait_for_json_editor.toml` 文件即可。但是为了旧版本能收到更新提醒，仍然需要修改 `all.json`。
 :::
 
 :::info 有用的链接
@@ -150,5 +162,16 @@ git checkout tags/2.2.3
 
 :::
 
-2. 在 [DanXi-Dev/DanXi-Backend](https://github.com/DanXi-Dev/DanXi-Backend) 仓库中，打开 `tmp_wait_for_json_editor.toml` 文件。找到 [latest_version] 下的 flutter 字段，修改其值。
-3. 在 [https://github.com/DanXi-Dev/danxi-dev.github.io] 仓库中找到 `src/views/ProjectAppView.vue` 文件，按需修改 `<script>` 标签中的 `latestVersion` 和 `oldestVersion` 变量。如有特殊需求，请同步更改该网页内的其他部分（如特性介绍）。
+2. 在 [DanXi-Dev/DanXi-Backend](https://github.com/DanXi-Dev/DanXi-Backend) 仓库中，打开 `tmp_wait_for_json_editor.toml` 文件。找到 `[latest_version]` 下的 flutter 字段，修改其值。
+
+### 官网
+在 [DanXi-Dev/danxi-dev.github.io](https://github.com/DanXi-Dev/danxi-dev.github.io) 仓库中找到 `src/views/ProjectAppView.vue` 文件，按需修改 `<script>` 标签中的 `latestVersion` 和 `oldestVersion` 变量。
+
+:::tip
+如有特殊需求，请同步更改该网页内的其他部分（如特性介绍）。
+:::
+
+
+### QQ 群组
+
+根据实际运营情况，也需要在 QQ 群组中发布新版本的安装包及更新日志。
