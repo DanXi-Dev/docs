@@ -8,7 +8,7 @@
 
 1. 在 `pubspec.yaml` 中修改版本号；
 2. 确定使用了正确的 Android 签名证书（证书使用流程见下）；
-3. 运行 `dart build_release.dart --target <android|windows|aab|linux> --versionCode <版本号，如 1.4.5>` 来打包。
+3. 运行 `dart build_release.dart --target <android|android-armv8|windows|aab|linux> --versionCode <版本号，如 1.4.5>` 来打包。
 4. 在 `build/app/` 目录下获取对应的安装包。
 
 ::::tip 证书使用流程
@@ -72,6 +72,12 @@ signingConfig signingConfigs.release
 
 1. 保证安装包体积小于 25MB，以满足 Cloudflare 的限制；
 2. 将安装包命名为 `danxi-latest.apk`，上传至 https://github.com/DanXi-Dev/DanXi-Backend/tree/main/public 文件夹下。
+
+:::tip
+如何减小安装包体积？
+
+考虑到目前最主流平台是 armv8，`build_release.dart` 支持打包为 `android-armv8`，这样可以减小安装包体积。按照惯例，我们也会在这里只上传 `android-armv8` 的安装包。
+:::
 
 ### F-Droid
 
