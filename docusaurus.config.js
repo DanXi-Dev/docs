@@ -6,7 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: '旦夕开发文档',
+  title: '旦挞开发文档',
   tagline: '所有开发相关文档的聚集地',
   favicon: 'img/favicon.ico',
 
@@ -64,7 +64,7 @@ const config = {
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
-        title: '旦夕开发',
+        title: '旦挞开发',
         logo: {
           alt: 'My Site Logo',
           src: 'img/logo.svg',
@@ -80,13 +80,13 @@ const config = {
             type: 'docSidebar',
             sidebarId: 'danxiAppSidebar',
             position: 'left',
-            label: '旦夕 App',
+            label: '旦挞 App',
           },
           {
             type: 'docSidebar',
             sidebarId: 'maintenanceSidebar',
             position: 'left',
-            label: '旦夕日常维护',
+            label: '旦挞日常维护',
           },
           {to: '/blog', label: 'Blog', position: 'left'},
           {

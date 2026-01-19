@@ -5,12 +5,12 @@ import DocCardList from '@theme/DocCardList';
 
 # 导航
 
-欢迎来到旦夕开发文档。
+欢迎来到旦挞开发文档。
 
 <DocCardList items={[
   {
     type: 'link',
-    label: '旦夕 App（Flutter）',
+    label: '旦挞 App（Flutter）',
     href: 'danxi/intro'
   }
 ]} />
@@ -18,7 +18,7 @@ import DocCardList from '@theme/DocCardList';
 <DocCardList items={[
   {
     type: 'link',
-    label: '旦夕日常维护',
+    label: '旦挞日常维护',
     href: 'maintenance/intro'
   }
 ]} />

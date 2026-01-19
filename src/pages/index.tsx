@@ -31,7 +31,7 @@ export default function Home(): JSX.Element {
   return (
     <Layout
       title={`首页`}
-      description="旦夕开发文档">
+      description="旦挞开发文档">
       <HomepageHeader />
       {/* <main>
         <HomepageFeatures />

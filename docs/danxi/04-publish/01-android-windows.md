@@ -44,7 +44,7 @@ signingConfig signingConfigs.release
 ::::
 
 ## 发布
-目前旦夕安装包的发布渠道有以下几个，每次发布时需分别操作：
+目前旦挞安装包的发布渠道有以下几个，每次发布时需分别操作：
 
 ### Github Releases
 发布到 Github Releases 时，需要在 Github 上创建一个新的 Release，然后上传对应的 Android 和 Windows 安装包。
@@ -133,7 +133,7 @@ git checkout tags/2.2.3
 1. FAQ，介绍了 F-Droid 的构建流程（英文）：<https://gitlab.com/fdroid/wiki/-/wikis/FAQ>
 2. 服务器整体构建状态监控（英文）：<https://monitor.f-droid.org/builds/build>
 3. F-Droid 构建问题请求跟踪（英文）：<https://gitlab.com/fdroid/fdroiddata/-/issues>
-4. 旦夕的构建元文件：<https://gitlab.com/fdroid/fdroiddata/-/blob/master/metadata/io.github.danxi_dev.dan_xi.yml>
+4. 旦挞的构建元文件：<https://gitlab.com/fdroid/fdroiddata/-/blob/master/metadata/io.github.danxi_dev.dan_xi.yml>
 5. 构建元文件的格式说明（中文）：<https://f-droid.org/zh_Hans/docs/Build_Metadata_Reference/>
 
 :::
