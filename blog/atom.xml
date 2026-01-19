@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://danxi.fduhole.com/docs/blog</id>
-    <title>旦夕开发文档 Blog</title>
+    <title>旦挞开发文档 Blog</title>
     <updated>2021-08-26T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://danxi.fduhole.com/docs/blog"/>
-    <subtitle>旦夕开发文档 Blog</subtitle>
+    <subtitle>旦挞开发文档 Blog</subtitle>
     <icon>https://danxi.fduhole.com/docs/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[Welcome]]></title>

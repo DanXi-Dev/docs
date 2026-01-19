@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkdanxi_doc=globalThis.webpackChunkdanxi_doc||[]).push([[4874],{776(a){a.exports=JSON.parse('{"label":"facebook","permalink":"/docs/blog/tags/facebook","allTagsPath":"/docs/blog/tags","count":1}')}}]);
