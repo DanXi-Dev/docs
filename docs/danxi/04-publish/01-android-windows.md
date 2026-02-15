@@ -6,9 +6,14 @@
 
 ## 打包
 
+目前的打包流程分别需要在本地和 GitHub Actions 上执行，分别对应不同的平台。请按照以下步骤进行打包：
+
+### 本地打包（Android）
+
 1. 在 `pubspec.yaml` 中修改版本号；
 2. 确定使用了正确的 Android 签名证书（证书使用流程见下）；
-3. 运行 `dart build_release.dart --target <android|android-armv8|windows|aab|linux> --versionCode <版本号，如 1.4.5>` 来打包。
+3. 运行 `dart build_release.dart --target <android|android-armv8|aab> --versionCode <版本号，如 1.4.5>` 来打包。
+    - 这三个选项分别对应打包为 Android 安装包（包含所有架构）、仅打包 armv8 架构的安装包、以及用于 Google Play 发布的 AAB 包。通常来说，三个都需要打包。
 4. 在 `build/app/` 目录下获取对应的安装包。
 
 ::::tip 证书使用流程
@@ -43,6 +48,13 @@ signingConfig signingConfigs.release
 
 ::::
 
+### GitHub Actions 打包（Windows / Linux）
+
+1. 将 `pubspec.yaml` 中的版本号修改提交到远程仓库；
+2. 在 GitHub 仓库页面中，进入 `Actions` 标签页，找到 `Automated-CI-Windows` 和 `Automated-CI-Linux` 两个工作流，分别点击进入；
+3. 在每个工作流页面中，点击 `Run workflow` 按钮，`Tag name` 保持为 `nightly`，然后点击 `Run workflow` 来触发工作流；
+4. 等待工作流完成，进入 [nightly 发布页面](https://github.com/DanXi-Dev/DanXi/releases/tag/nightly)，下载对应的安装包。
+
 ## 发布
 目前旦挞安装包的发布渠道有以下几个，每次发布时需分别操作：
 
@@ -70,7 +82,7 @@ signingConfig signingConfigs.release
 ### Android 下载站
 目前暂时没有自动化的发布流程，需要手动上传安装包到服务器。
 
-1. 保证安装包体积小于 25MB，以满足 Cloudflare 的限制；
+1. 保证**安装包体积小于 25MB**，以满足 Cloudflare 的限制；
 2. 将安装包命名为 `danxi-latest.apk`，上传至 https://github.com/DanXi-Dev/DanXi-Backend/tree/main/public 文件夹下。
 
 :::tip
@@ -88,6 +100,7 @@ signingConfig signingConfigs.release
 
 
 需要保证 `pubspec.lock` 是最新的。如果你设置了 Flutter 使用国内镜像（如 `pub.flutter-io.cn`），你的本地 `pubspec.lock` 中的地址将指向镜像站而非官方源（如 `pub.dev`），因此需要暂时修改你的镜像设置，然后重新执行 `flutter pub upgrade` 和 `flutter pub get`，以确保 `pubspec.lock` 中的地址指向官方源。
+
 任何情况下都**不要向仓库提交包含国内镜像站地址的 `pubspec.lock`，否则将会导致工程管理混乱，以及 F-Droid 方面无法为你构建 APK！**
 
 当然，如果你从未修改过 Flutter 镜像设置，或者你确保自己使用的就是官方源，那么你可以跳过这个警告。
@@ -146,7 +159,7 @@ git checkout tags/2.2.3
 
 ### Google Play
 
-在 Google Play 中发布需要打包为 `.aab` 格式的安装包，然后上传到 Google Play Console。
+在 Google Play 中发布需要 `.aab` 格式的安装包，然后上传到 Google Play Console。
 
 由于 Google Play Console 的操作较为直观，这里不再赘述具体步骤。
 
@@ -168,7 +181,7 @@ git checkout tags/2.2.3
 
 :::
 
-2. 在 [DanXi-Dev/DanXi-Backend](https://github.com/DanXi-Dev/DanXi-Backend) 仓库中，打开 `tmp_wait_for_json_editor.toml` 文件。找到 `[latest_version]` 下的 flutter 字段，修改其值。
+2. 在 [DanXi-Dev/DanXi-Backend](https://github.com/DanXi-Dev/DanXi-Backend) 仓库中，打开 `tmp_wait_for_json_editor.toml` 文件。找到 `[latest_version]` 下的 `flutter` 字段，修改其值为最新版本号；找到 `change_log` 字段，修改其值为最新版本的更新日志。
 
 ### 官网
 在 [DanXi-Dev/danxi-dev.github.io](https://github.com/DanXi-Dev/danxi-dev.github.io) 仓库中找到 `src/views/ProjectAppView.vue` 文件，按需修改 `<script>` 标签中的 `latestVersion` 和 `oldestVersion` 变量。
