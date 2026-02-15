@@ -62,9 +62,9 @@ signingConfig signingConfigs.release
 :::
 
 :::info 有用的链接
-1. 发布新版本：<https://github.com/DanXi-Dev/DanXi/releases/new>
-2. 编写更新日志时，可以对照从上一个版本到这个版本的提交记录，如：<https://github.com/DanXi-Dev/DanXi/compare/v1.3.10...main>
-3. 编写更新日志时，可以参考以往的更新日志的 Markdown 格式，如：<https://github.com/DanXi-Dev/DanXi/releases/edit/v1.3.10>
+1. 发布新版本：[https://github.com/DanXi-Dev/DanXi/releases/new](https://github.com/DanXi-Dev/DanXi/releases/new)
+2. 编写更新日志时，可以对照从上一个版本到这个版本的提交记录，如：[https://github.com/DanXi-Dev/DanXi/compare/v1.3.10...main](https://github.com/DanXi-Dev/DanXi/compare/v1.3.10...main)
+3. 编写更新日志时，可以参考以往的更新日志的 Markdown 格式，如：[https://github.com/DanXi-Dev/DanXi/releases/edit/v1.3.10](https://github.com/DanXi-Dev/DanXi/releases/edit/v1.3.10)
 :::
 
 ### Android 下载站
@@ -130,11 +130,11 @@ git checkout tags/2.2.3
 
 :::info 有用的链接
 
-1. FAQ，介绍了 F-Droid 的构建流程（英文）：<https://gitlab.com/fdroid/wiki/-/wikis/FAQ>
-2. 服务器整体构建状态监控（英文）：<https://monitor.f-droid.org/builds/build>
-3. F-Droid 构建问题请求跟踪（英文）：<https://gitlab.com/fdroid/fdroiddata/-/issues>
-4. 旦挞的构建元文件：<https://gitlab.com/fdroid/fdroiddata/-/blob/master/metadata/io.github.danxi_dev.dan_xi.yml>
-5. 构建元文件的格式说明（中文）：<https://f-droid.org/zh_Hans/docs/Build_Metadata_Reference/>
+1. FAQ，介绍了 F-Droid 的构建流程（英文）：[https://gitlab.com/fdroid/wiki/-/wikis/FAQ](https://gitlab.com/fdroid/wiki/-/wikis/FAQ)
+2. 服务器整体构建状态监控（英文）：[https://monitor.f-droid.org/builds/build](https://monitor.f-droid.org/builds/build)
+3. F-Droid 构建问题请求跟踪（英文）：[https://gitlab.com/fdroid/fdroiddata/-/issues](https://gitlab.com/fdroid/fdroiddata/-/issues)
+4. 旦挞的构建元文件：[https://gitlab.com/fdroid/fdroiddata/-/blob/master/metadata/io.github.danxi_dev.dan_xi.yml](https://gitlab.com/fdroid/fdroiddata/-/blob/master/metadata/io.github.danxi_dev.dan_xi.yml)
+5. 构建元文件的格式说明（中文）：[https://f-droid.org/zh_Hans/docs/Build_Metadata_Reference/](https://f-droid.org/zh_Hans/docs/Build_Metadata_Reference/)
 
 :::
 
@@ -164,7 +164,7 @@ git checkout tags/2.2.3
 
 :::info 有用的链接
 
-1. JSON 格式化和转义工具（中文）：<https://www.bejson.com/>
+1. JSON 格式化和转义工具（中文）：[https://www.bejson.com/](https://www.bejson.com/)
 
 :::
 

@@ -26,7 +26,7 @@ cargo run -- --help
 即可查看帮助信息。你也可以查看 `cli/src/main.rs` 文件了解更多信息。下面是对几个复杂参数的解释：
 
 - `--db_url`：不是数据库的 URL，而是后端上传课程的 URL，例如 `https://danke.fduhole.com/api/courses`。请向运维同学了解该 URL。
-- `--auth_token`：具有管理员权限的 token，用于上传课程。应当从 Auth 前端（一般为 <https://auth.fduhole.com>）登录获得 access token。
+- `--auth_token`：具有管理员权限的 token，用于上传课程。应当从 Auth 前端（一般为 [https://auth.fduhole.com](https://auth.fduhole.com)）登录获得 access token。
 - `--year`：学年，例如 `2023` 代表 `2023-2024` 学年。
 - `--semester`：学期，`1` 代表秋冬学期，`2` 代表寒假，`3` 代表（第二年的）春夏学期，`4` 代表（第二年的）暑假。
 
