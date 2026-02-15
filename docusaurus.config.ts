@@ -37,12 +37,7 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           editUrl: 'https://github.com/DanXi-Dev/docs',
         },
-        blog: {
-          showReadingTime: true,
-          editUrl: 'https://github.com/DanXi-Dev/docs',
-          onInlineAuthors: 'ignore',
-          onUntruncatedBlogPosts: 'ignore',
-        },
+        blog: false,
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -77,7 +72,6 @@ const config: Config = {
           position: 'left',
           label: '旦挞日常维护',
         },
-        {to: '/blog', label: 'Blog', position: 'left'},
         {
           href: 'https://github.com/DanXi-Dev/docs',
           label: 'GitHub',
@@ -100,10 +94,6 @@ const config: Config = {
         {
           title: '更多',
           items: [
-            {
-              label: 'Blog',
-              to: 'blog',
-            },
             {
               label: 'GitHub',
               href: 'https://github.com/DanXi-Dev/docs',
